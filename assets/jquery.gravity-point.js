@@ -1,44 +1,35 @@
 $(document).ready(function() {
   
-  
-  // The harmony calculator
+  // The harmony / gravity point calculator
   // -------------------------------------------------
   
-  // The container
-  $('body').append('<section id="gravity">');
   
-  // The axis
-  $('#gravity').append('<div class="h-horizontal"></div>');
-  $('#gravity').append('<div class="h-vertical"></div>');
-  $('#gravity').append('<div class="h-golden-rectangle"></div>');
+  // How it works:
+  // 1. Draws a vertical, a horizontal axis around the page centre together with a centered golden ration rectangle
+  // 2. Calculates and draws the gravity point based on those elements which are currently visible on the page, and defined in the .html
+  // 3. Repeats 1. and 2. on scroll and browser resize
   
   
-  function goldenRectangle() {
-    var minorX = $(window).width() / 8 * 3;
-    var majorX = $(window).width() / 8 * 5;
-    var left = $(window).width() / 2 - minorX;
-    var right = majorX - $(window).width() / 2;
+  
+  // This is the main function
+  function drawGravityPoint() {
     
-    var minorY = $(window).height() / 8 * 3;
-    var majorY = $(window).height() / 8 * 5;
-    var top = $(window).height() / 2 - minorY;
-    var bottom = majorY - $(window).height() / 2;
+    // Check if there are elements defined in the .html file 
+    if (typeof gravityPointElements == "undefined") {
+      console.log("gravityPointElements is undefined in the HTML");
+      return;
+    }
     
     
-    $('.h-golden-rectangle').css('width', left + right + 'px');
-    $('.h-golden-rectangle').css('height', top + bottom + 'px');
-    $('.h-golden-rectangle').css('left', minorX + 'px');
-    $('.h-golden-rectangle').css('top', minorY + 'px');
-  }
-  
-  
-  function gravityPoint() {
+    // Set up variables for the arithmetic mean calculations
     var sum = 0;
     var sumX = 0;
     var sumY = 0;
     
+    
+    
     // Loop through elements
-    var data = $.parseJSON(elements);
+    var data = $.parseJSON(gravityPointElements);
     $.each(data, function() {
       
       // This is a collection 
@@ -61,7 +52,7 @@ $(document).ready(function() {
           }
         });
         
-        // This is a single standalone item
+        // This is a single standalone item, not a collection
       } else {
         item = $(this['id']);
         if (isElementInViewport(item)) {
@@ -76,17 +67,22 @@ $(document).ready(function() {
       }
     });
     
-    // Draw the gravity point
-    var x = $(window).width() / 2 + sumX / sum;
-    var y = $(window).height() / 2 - sumY / sum;
-    var style = 'left: ' + x + 'px; top: ' + y + 'px';
-    $('#gravity').append('<div class="h-gravity-point" style="' + style + '"></div>');
-    
-    $('body').append('</section>');
+    // append the results to the end of the .html
+    appendToPage(sumX, sumY, sum);
   }
   
-  $(window).on('DOMContentLoaded load resize scroll', gravityPoint); 
-  $(window).on('DOMContentLoaded load resize scroll', goldenRectangle); 
+  
+  // 3. Recalculate and redraw everything on scroll / browser resize
+  // ----
+  $(window).on('DOMContentLoaded load resize scroll', drawGravityPoint); 
+  $(window).on('DOMContentLoaded load resize scroll', drawGoldenRectangle); 
+  
+  
+  
+  // Helper functions
+  // ----
+  
+  
   
   
   // Calculate
@@ -160,21 +156,29 @@ $(document).ready(function() {
   }
   
   
-  
-  
-  
-  
-  // The visual grid
-  var grid = "";
-  for (i=0; i<500; i++) {
-    grid += '<div class="col">';
-    grid += '<div class="gutter-right">&nbsp;</div>';
-    grid += '<div class="gutter-bottom">&nbsp;</div>';
-    grid += '</div>';
+  // The axis and the rectangle
+  function drawGuides() {
+    $('#gravity').append('<div class="h-horizontal"></div>');
+    $('#gravity').append('<div class="h-vertical"></div>');
+    $('#gravity').append('<div class="h-golden-rectangle"></div>');
   }
   
-  $("body").append(
-    '<section id="grid">' + grid + '</section>'
-  );
-  
+  // The golden ratio sized rectangle around the page centre
+  function drawGoldenRectangle() {
+    var minorX = $(window).width() / 8 * 3;
+    var majorX = $(window).width() / 8 * 5;
+    var left = $(window).width() / 2 - minorX;
+    var right = majorX - $(window).width() / 2;
+    
+    var minorY = $(window).height() / 8 * 3;
+    var majorY = $(window).height() / 8 * 5;
+    var top = $(window).height() / 2 - minorY;
+    var bottom = majorY - $(window).height() / 2;
+    
+    
+    $('.h-golden-rectangle').css('width', left + right + 'px');
+    $('.h-golden-rectangle').css('height', top + bottom + 'px');
+    $('.h-golden-rectangle').css('left', minorX + 'px');
+    $('.h-golden-rectangle').css('top', minorY + 'px');
+  }
 });
