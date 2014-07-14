@@ -19,5 +19,5 @@ If the gravity point is inside a golden ratio rectangle around the page centre w
 
 ## Who is it for?
 
-This aims to be a tool for web designers and developers to help them align elements of a webpage in harmony.
+This aims to be a tool for web designers and developers to help them organize the elements of a webpage into harmony.
 Remember, beauty is oneness and diversity in harmony.
