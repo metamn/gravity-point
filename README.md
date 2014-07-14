@@ -2,6 +2,8 @@
 
 Find the centre of gravity of a webpage.
 
+![The Gravity Point](example.png "The Gravity Point")
+
 ### Description
 
 Every element of a webpage (text, image/video) can have a weight given by the area and the tone of the element.

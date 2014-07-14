@@ -1,0 +1,45 @@
+/* line 7, gravity-point.scss */
+#gravity .h-vertical, #gravity .h-horizontal, #gravity .h-golden-rectangle {
+  position: fixed;
+  z-index: 1000;
+  opacity: .3;
+}
+/* line 13, gravity-point.scss */
+#gravity .h-vertical {
+  left: calc(50% - 1px);
+  height: 100%;
+  border-left: 1px solid red;
+}
+/* line 19, gravity-point.scss */
+#gravity .h-horizontal {
+  top: calc(50% - 1px);
+  width: 100%;
+  border-bottom: 1px solid red;
+}
+/* line 25, gravity-point.scss */
+#gravity .h-golden-rectangle {
+  border: 1px solid green;
+  opacity: .8;
+}
+/* line 30, gravity-point.scss */
+#gravity .h-gravity-point {
+  position: absolute;
+  z-index: 1000;
+  opacity: .3;
+  display: none;
+}
+/* line 35, gravity-point.scss */
+#gravity .h-gravity-point:after {
+  content: '';
+  display: block;
+  width: 1.25em;
+  height: 1.25em;
+  background: red;
+  position: relative;
+  top: -0.625em;
+  left: -0.625em;
+}
+/* line 47, gravity-point.scss */
+#gravity .h-gravity-point:last-of-type {
+  display: block;
+}
