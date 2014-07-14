@@ -4,11 +4,31 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 @import "compass/reset";
+@import "compass/css3";
+@import "mixins";
 
-h1 {
-  font-size: 1.618em;
-  display: inline-block;
-  position: absolute;
-  top: calc(50% - 0.625em);
-  left: calc(50% - 3.2em);
+@import url(http://fonts.googleapis.com/css?family=Lato:300);
+
+html {
+  body {
+    font-family: 'Lato', sans-serif;
+    font-size: 100%;
+    line-height: 1.25;
+    
+    .container {
+      text-align: center;
+      
+      h1 {
+        font-size: 1.618em;
+        font-variant: small-caps;
+        
+        display: inline-block;
+        position: absolute;
+        @include center;
+      }
+      
+    }
+  }
 }
+
+

@@ -1,8 +1,24 @@
 // The harmony / gravity point calculator
 // ---------------------------------------------
 
+
+// Grid settings
+// - this represents the line-height defined in the typographic grid in my custom CSS framework
+// - it is used to set the dimension of the gravity point
+// - you can change it anytime
 $gutter: 1.25em;
 
+
+// Colors
+// - you can change them anytime
+$line: red;
+$rectangle: green;
+$gravity-point: red;
+
+
+
+// The gravity point and the guides
+// - preferably do not change below
 #gravity {
   .h-vertical, .h-horizontal, .h-golden-rectangle {
     position: fixed;
@@ -10,23 +26,27 @@ $gutter: 1.25em;
     opacity: .3;
   }
 
+  // the vertical guide
   .h-vertical {
     left: calc(50% - 1px);
     height: 100%;
-    border-left: 1px solid red;
+    border-left: 1px solid $line;
   }
 
+  // the horizontal guide
   .h-horizontal {
     top: calc(50% - 1px);
     width: 100%;
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid $line;
   }
 
+  // the golden ratio rectangle around page centre
   .h-golden-rectangle {
-    border: 1px solid green;
+    border: 1px solid $rectangle;
     opacity: .8;
   }
   
+  // the gravity point
   .h-gravity-point {
     position: absolute;
     z-index: 1000;
@@ -37,7 +57,7 @@ $gutter: 1.25em;
       display: block;
       width: $gutter;
       height: $gutter;
-      background: red;
+      background: $gravity-point;
       position: relative;
       top: -$gutter / 2;
       left: -$gutter / 2;
